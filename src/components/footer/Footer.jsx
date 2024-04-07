@@ -1,11 +1,9 @@
-import styles from "./footer.module.css";
-
 const Footer = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.logo}>HL-plants</div>
-      <div className={styles.text}>
-        Cửa hàng cây cảnh HL-plants © All rights reserved.
+    <div className="bot-0 h-12 flex items-center justify-between border-t text-gray-700 px-4 bg-sky-100">
+      <div className="font-bold">Logo</div>
+      <div className="text-xs">
+        Website description © All rights reserved.
       </div>
     </div>
   );

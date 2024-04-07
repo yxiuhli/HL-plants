@@ -1,57 +1,55 @@
 "use client";
-
-import { useState } from "react";
-import styles from "./links.module.css";
-import NavLink from "./navLink/navLink";
-import Image from "next/image";
-//import { handleLogout } from "@/lib/action";
+import { useState, useContext } from "react";
+import NavLink from "./navLink/NavLink";
+import { AuthContext } from "@/context/AuthContext";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { LoginNavButton, LogoutNavButton } from "./navButton/NavButton";
 
 const links = [
   {
-    title: "Trang chủ",
+    title: "Home",
     path: "/",
   },
   {
-    title: "Sản phẩm",
-    path: "/products",
+    title: "Plants",
+    path: "/plants",
   },
-
+  {
+    title: "Accessories",
+    path: "/accessories",
+  },
+  {
+    title: "About",
+    path: "/about",
+  },
 ];
 
-const Links = ({session}) => {
+const Links = () => {
   const [open, setOpen] = useState(false);
 
-  // TEMPORARY
-  // const session = true;
-  // const isAdmin = true;
+  //const { currentUser, updateUser } = useContext(AuthContext);
+  const currentUser = false;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.links}>
+    <div className="">
+      <div className="hidden md:flex items-center gap-2">
         {links.map((link) => (
           <NavLink item={link} key={link.title} />
         ))}
-        {session?.user ? (
-          <>
-            {session.user?.isAdmin && <NavLink item={{ title: "Admin", path: "/admin" }} />}
-            <form action={handleLogout}>
-              <button className={styles.logout}>Logout</button>
-            </form>
-          </>
+        {currentUser ? <LogoutNavButton /> : <LoginNavButton />}
+      </div>
+      <div onClick={() => setOpen((prev) => !prev)}>
+        {open ? (
+          <XMarkIcon className="h-12 w-12 md:hidden block cursor-pointer p-2" />
         ) : (
-          <NavLink item={{ title: "Login", path: "/login" }} />
+          <Bars3Icon className="h-12 w-12 md:hidden block cursor-pointer p-2" />
         )}
       </div>
-      <Image
-        className={styles.menuButton}
-        src="/menu.png"
-        alt=""
-        width={30}
-        height={30}
-        onClick={() => setOpen((prev) => !prev)}
-      />
       {open && (
-        <div className={styles.mobileLinks}>
+        <div
+          className="md:hidden absolute top-[70px] right-0 w-1/2 h-[calc(100vh-70px)] 
+        bg-gray-200 flex flex-col items-center justify-center gap-10 "
+        >
           {links.map((link) => (
             <NavLink item={link} key={link.title} />
           ))}
