@@ -24,7 +24,7 @@ export function Providers({ children }) {
   return (
     <StyledEngineProvider>
       <ThemeProvider theme={theme}>
-        <AuthProvider>{children}</AuthProvider>;
+        <AuthProvider>{children}</AuthProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   );
