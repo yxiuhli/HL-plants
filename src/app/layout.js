@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <div className="relative min-h-screen flex flex-col justify-between bg-[#fffbf6]">
             <Navbar />
-            <div className="">{children}</div>
+            <div className="min-h-[calc(100vh-118px)]">{children}</div>
             <Footer />
           </div>
         </Providers>
