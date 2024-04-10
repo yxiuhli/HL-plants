@@ -1,7 +1,6 @@
-import ProductList from "@/components/productList/ProductList";
+import ProductCard from "@/components/productCard/ProductCard";
 import { getPlants } from "@/lib/data";
 import { Typography } from "@mui/material";
-import Image from "next/image";
 
 const Home = async () => {
   const plants = await getPlants();
@@ -21,13 +20,31 @@ const Home = async () => {
           Welcome to HL-plants
         </Typography>
       </div>
-      <div>
-        Best sellers
-        <ProductList products={plants}></ProductList>
+      <div className="mx-16">
+        <Typography
+          variant="h4"
+          className="ml-2 mt-8 mb-6 font-[Palatino] font-thin text-teal-900"
+        >
+          Best sellers
+        </Typography>
+        <div className="w-full pb-2 grid grid-flow-col auto-cols-[30%] overflow-x-auto gap-12 overscroll-auto snap-x">
+          {plants.map((product) => (
+            <ProductCard key={product._id} product={product}></ProductCard>
+          ))}
+        </div>
       </div>
-      <div>
-        Recent added
-        <ProductList products={plants}></ProductList>
+      <div className="mx-16">
+      <Typography
+          variant="h4"
+          className="ml-2 mt-8 mb-6 font-[Palatino] font-thin text-teal-900"
+        >
+          Recent added
+        </Typography>
+        <div className="w-full pb-2 grid grid-flow-col auto-cols-[30%] overflow-x-auto gap-12 overscroll-auto snap-x">
+          {plants.map((product) => (
+            <ProductCard key={product._id} product={product}></ProductCard>
+          ))}
+        </div>
       </div>
       <div>Review comment</div>
     </div>

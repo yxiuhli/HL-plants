@@ -16,16 +16,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <div className="relative min-h-screen flex flex-col justify-between">
+          <div className="relative min-h-screen flex flex-col justify-between bg-[#fffbf6]">
             <Navbar />
-            <div className="bg-orange-50 px-8">
-
-            {children}
-            </div>
+            <div className="">{children}</div>
             <Footer />
           </div>
         </Providers>
       </body>
     </html>
-  )
+  );
 }

@@ -1,7 +1,6 @@
 "use client";
 import { useState, useContext } from "react";
 import NavLink from "./navLink/NavLink";
-import { AuthContext } from "@/context/AuthContext";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { LoginNavButton, LogoutNavButton } from "./navButton/NavButton";
 
@@ -27,7 +26,6 @@ const links = [
 const Links = () => {
   const [open, setOpen] = useState(false);
 
-  //const { currentUser, updateUser } = useContext(AuthContext);
   const currentUser = false;
 
   return (
@@ -48,7 +46,7 @@ const Links = () => {
       {open && (
         <div
           className="md:hidden absolute top-[70px] right-0 w-1/2 h-[calc(100vh-70px)] 
-        bg-gray-200 flex flex-col items-center justify-center gap-10 "
+        bg-orange-100 flex flex-col items-center justify-center gap-10 "
         >
           {links.map((link) => (
             <NavLink item={link} key={link.title} />
