@@ -1,5 +1,4 @@
 "use client";
-
 import { AuthProvider } from "@/context/AuthContext";
 import {
   StyledEngineProvider,
@@ -7,16 +6,13 @@ import {
   ThemeProvider,
 } from "@mui/material/styles";
 
-import { black } from "@mui/material/colors";
-
 const { palette } = createTheme();
+const { augmentColor } = palette;
+const createColor = (mainColor) => augmentColor({ color: { main: mainColor } });
 const theme = createTheme({
   palette: {
-    black: palette.augmentColor({
-      color: {
-        main: "#000000"
-      }
-    })
+    black: createColor("#000000"),
+    orl: createColor("#fff2e6"),
   },
 });
 
