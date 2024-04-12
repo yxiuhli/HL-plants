@@ -1,4 +1,4 @@
-import ProductCard from "@/components/productCard/ProductCard";
+import ProductCard from "@/components/productsPanel/productCard/ProductCard";
 import { getPlants } from "@/lib/data";
 import { Typography } from "@mui/material";
 
@@ -34,7 +34,7 @@ const Home = async () => {
         </div>
       </div>
       <div className="mx-16">
-      <Typography
+        <Typography
           variant="h4"
           className="ml-2 mt-8 mb-6 font-[Palatino] font-thin text-teal-900"
         >
