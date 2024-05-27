@@ -47,7 +47,6 @@ const Links = ({ session }) => {
         ) : (
           <LoginNavButton />
         )}
-        {console.log(session?.user)}
       </div>
       <div onClick={() => setOpen((prev) => !prev)}>
         {open ? (

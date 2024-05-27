@@ -1,4 +1,4 @@
-import { Post } from "@/lib/models";
+import { Plant } from "@/lib/models";
 import { connectToDb } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
@@ -8,8 +8,8 @@ export const GET = async (request, { params }) => {
   try {
     connectToDb();
 
-    const post = await Post.findOne({ slug });
-    return NextResponse.json(post);
+    const plant = await Plant.findOne({ slug });
+    return NextResponse.json(plant);
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch post!");

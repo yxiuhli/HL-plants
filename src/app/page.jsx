@@ -2,9 +2,9 @@ import ProductCard from "@/components/productsPanel/productCard/ProductCard";
 import { getPlants } from "@/lib/data";
 import { Typography } from "@mui/material";
 
-const Home = async () => {
-  const plants = await getPlants();
+const plants = await getPlants();
 
+const Home =  () => {
   return (
     <div className="flex flex-col justify-start">
       <div className="w-full relative h-[450px]">

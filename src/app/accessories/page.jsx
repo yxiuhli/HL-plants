@@ -5,13 +5,15 @@ import { getPlants } from "@/lib/data";
 import SortMenu from "@/components/sortMenu/SortMenu";
 import Filters from "@/components/filterMenu/FilterMenu";
 
-const AccessoriesPage = async () => {
-  const plants = await getPlants();
+
+const plants = await getPlants();
+
+const AccessoriesPage = () => {
 
   return (
     <div className="flex flex-col">
       <div className="flex justify-between px-10 py-6">
-        <Typography variant="h3">Plants</Typography>
+        <Typography variant="h3">Accessories</Typography>
 
         <SortMenu />
       </div>

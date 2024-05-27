@@ -5,9 +5,9 @@ import { getPlants } from "@/lib/data";
 import SortMenu from "@/components/sortMenu/SortMenu";
 import Filters from "@/components/filterMenu/FilterMenu";
 
-const PlantsPage = async () => {
-  const plants = await getPlants();
+const plants = await getPlants();
 
+const PlantsPage = () => {
   return (
     <div className="flex flex-col">
       <div className="flex justify-between px-10 py-6">
