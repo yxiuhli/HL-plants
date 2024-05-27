@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {Button } from "@mui/material"
 
+
 export const LoginNavButton = () => {
   return (
     <Link href="/login">
@@ -16,10 +17,8 @@ export const LoginNavButton = () => {
 };
 
 export const LogoutNavButton = () => {
-  const handleLogout = async () => {};
 
   return (
-    <Link href="/">
       <Button
         variant="outlined"
         color="black"
@@ -27,6 +26,5 @@ export const LogoutNavButton = () => {
       >
         Logout
       </Button>
-    </Link>
   );
 };

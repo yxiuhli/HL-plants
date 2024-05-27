@@ -1,5 +1,4 @@
 "use client";
-import { AuthProvider } from "@/context/AuthContext";
 import {
   StyledEngineProvider,
   createTheme,
@@ -20,7 +19,7 @@ export function Providers({ children }) {
   return (
     <StyledEngineProvider>
       <ThemeProvider theme={theme}>
-        <AuthProvider>{children}</AuthProvider>
+        {children}
       </ThemeProvider>
     </StyledEngineProvider>
   );

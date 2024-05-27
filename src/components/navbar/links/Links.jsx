@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import NavLink from "./navLink/NavLink";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { LoginNavButton, LogoutNavButton } from "./navButton/NavButton";
+import { handleLogout } from "@/lib/action";
 
 const links = [
   {
@@ -23,7 +24,7 @@ const links = [
   },
 ];
 
-const Links = () => {
+const Links = ({ session }) => {
   const [open, setOpen] = useState(false);
 
   const currentUser = false;
@@ -34,7 +35,19 @@ const Links = () => {
         {links.map((link) => (
           <NavLink item={link} key={link.title} />
         ))}
-        {currentUser ? <LogoutNavButton /> : <LoginNavButton />}
+        {session?.user ? (
+          <>
+            {session.user?.isAdmin && (
+              <NavLink item={{ title: "Admin", path: "/admin" }} />
+            )}
+            <form action={handleLogout}>
+              <button>Logout</button>
+            </form>
+          </>
+        ) : (
+          <LoginNavButton />
+        )}
+        {console.log(session?.user)}
       </div>
       <div onClick={() => setOpen((prev) => !prev)}>
         {open ? (

@@ -1,26 +1,79 @@
-import apiRequest from "@/config/apiRequest";
+import NextAuth from "next-auth";
+import GitHub from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { connectToDb } from "./utils";
+import { User } from "./models";
+import bcrypt from "bcryptjs";
+import { authConfig } from "./auth.config";
 
-export const login = async (email, password) =>{
-  const user = await apiRequest.post("/auth/login", {
-    email,
-    password,
-  });
-  return user;
-}
+const login = async (credentials) => {
+  try {
+    connectToDb();
+    const user = await User.findOne({ username: credentials.username });
 
-export const resetPassword = (token, email, password, password2) =>{
-  return apiRequest.post("auth/reset-password", {
-    token,
-    email,
-    password,
-    password2,
-  });
-}
+    if (!user) throw new Error("Wrong credentials!");
 
-export const register = (username, email, password) =>{
-  return apiRequest.post("auth/register", {
-    username,
-    email,
-    password,
-  });
-}
+    const isPasswordCorrect = await bcrypt.compare(
+      credentials.password,
+      user.password
+    );
+
+    if (!isPasswordCorrect) throw new Error("Wrong credentials!");
+
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to login!");
+  }
+};
+
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+} = NextAuth({
+  ...authConfig,
+  providers: [
+    GitHub({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
+    CredentialsProvider({
+      async authorize(credentials) {
+        try {
+          const user = await login(credentials);
+          return user;
+        } catch (err) {
+          return null;
+        }
+      },
+    }),
+  ],
+  secret: process.env.SECRET,
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account.provider === "github") {
+        connectToDb();
+        try {
+          const user = await User.findOne({ email: profile.email });
+
+          if (!user) {
+            const newUser = new User({
+              username: profile.login,
+              email: profile.email,
+              image: profile.avatar_url,
+            });
+
+            await newUser.save();
+          }
+        } catch (err) {
+          console.log(err);
+          return false;
+        }
+      }
+      return true;
+    },
+    ...authConfig.callbacks,
+  },
+});
