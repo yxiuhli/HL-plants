@@ -23,7 +23,7 @@ const AddToCartButton = () => {
         min="1"
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
-        className="border-2 border-gray-300 bg-gray h-8 px-5 rounded-lg text-sm focus:outline-none align-middle mx-1 w-16 text-center"
+        className="border-2 border-gray-300 bg-gray h-8 px-2 rounded-lg text-sm focus:outline-none align-middle mx-1 w-12 text-center"
       />
       <button 
         onClick={incrementQuantity} 
@@ -33,9 +33,9 @@ const AddToCartButton = () => {
       </button>
       <button 
         onClick={handleAddToCart} 
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md ml-4"
+        className="bg-teal-500 hover:bg-teal-700 w-24 text-white font-bold py-1 px-8 rounded-md ml-4"
       >
-        Add to Cart
+        Add Cart
       </button>
     </div>
   );
