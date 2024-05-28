@@ -1,3 +1,4 @@
+
 import { Typography } from "@mui/material";
 import React from "react";
 import ProductsPanel from "@/components/productsPanel/ProductsPanel";
