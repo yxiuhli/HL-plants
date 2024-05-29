@@ -1,4 +1,5 @@
 "use client";
+import { SortFilterProvider } from "@/lib/SortFilterProvider";
 import {
   StyledEngineProvider,
   createTheme,
@@ -18,9 +19,9 @@ const theme = createTheme({
 export function Providers({ children }) {
   return (
     <StyledEngineProvider>
-      <ThemeProvider theme={theme}>
-        {children}
-      </ThemeProvider>
+      <SortFilterProvider>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </SortFilterProvider>
     </StyledEngineProvider>
   );
 }

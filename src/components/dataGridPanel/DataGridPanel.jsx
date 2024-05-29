@@ -111,12 +111,14 @@ const DataGridPanel = async () => {
               defaultValue={update ? updatingProduct.desc : ""}
             ></TextField>
             <TextField
-              type="select"
+              select
               name="type"
               label="Loại sản phẩm"
               variant="standard"
-              defaultValue={update ? updatingProduct.type : ""}
-            />
+              defaultValue={update ? updatingProduct.type : ""}>
+                
+              </TextField>
+            
             <TextField
               name="price"
               label="Giá tiền"
