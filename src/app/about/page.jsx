@@ -56,18 +56,12 @@ const About = () => {
           </div>
           <img
             className="h-[260px] mr-96"
-            // src='/about-to-your-door-opt.jpg'
             src="/hometitle.jpg"
             alt="nature image"
           />
         </div>
       </div>
       <div className="w-full relative h-[960px] ">
-      {/* <img
-          className="absolute top-0 left-0 z-0 static object-cover h-full w-full"
-          src="/hometitle.jpg"
-          alt="nature image"
-        /> */}
         <section className="bg-cover z-10 bg-no-repeat bg-center py-24" >
           <div className="container mx-auto px-4 z-10">
             <h2 className="text-4xl font-bold text-center my-24 z-10">What People Are Saying</h2>
