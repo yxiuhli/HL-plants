@@ -29,7 +29,7 @@ const Filters = () => {
 
   return (
     <List>
-      <Accordion open={open === 1} onClick={() => handleOpen(1)}>
+      <Accordion defaultExpanded open={open === 1} onClick={() => handleOpen(1)}>
         <AccordionSummary expandIcon={<ChevronUpIcon className="h-5" />}>
           <ListItemIcon>
             <ChartBarIcon className="h-5 ml-5 mt-1" />
@@ -59,7 +59,7 @@ const Filters = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion open={open === 2} onClick={() => handleOpen(2)}>
+      <Accordion defaultExpanded open={open === 2} onClick={() => handleOpen(2)}>
         <AccordionSummary expandIcon={<ChevronUpIcon className="h-5" />}>
           <ListItemIcon>
             <WrenchIcon className="h-5 ml-5 mt-1" />
@@ -89,7 +89,7 @@ const Filters = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion open={open === 3} onClick={() => handleOpen(3)}>
+      <Accordion defaultExpanded open={open === 3} onClick={() => handleOpen(3)}>
         <AccordionSummary expandIcon={<ChevronUpIcon className="h-5" />}>
           <ListItemIcon>
             <CircleStackIcon className="h-5 ml-5 mt-1" />

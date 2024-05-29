@@ -1,15 +1,33 @@
 import Link from "next/link";
 import Links from "./links/Links";
 import { auth } from "@/lib/auth";
+import { LoginNavButton, LogoutNavButton } from "./links/navButton/NavButton";
+import { handleLogout } from "@/lib/action";
+import NavLink from "./links/navLink/NavLink";
 
 const Navbar = async () => {
   const session = await auth();
   return (
     <div className="sticky absolute z-20 top-0 h-[70px] flex items-center justify-between border-solid border-0 border-b border-blue-900/10 bg-[#fffbf6] px-10 font-[Avantgarde]">
-      <Link href="/" className="font-bold text-2xl">
-        Logo
+      <Link href="/" className="font-bold text-2xl font-serif text-teal-800">
+        HL-Plants
       </Link>
-      <Links session={session}/>
+      <Links/>
+      <div className="flex">
+        <NavLink item={{ title: "Cart", path: "/cart" }}/>
+        {session?.user ? (
+          <>
+            {session.user?.isAdmin && (
+              <NavLink item={{ title: "Admin", path: "/admin" }} />
+            )}
+            <form action={handleLogout}>
+              <button>Logout</button>
+            </form>
+          </>
+        ) : (
+          <LoginNavButton />
+        )}
+      </div>
     </div>
   );
 };

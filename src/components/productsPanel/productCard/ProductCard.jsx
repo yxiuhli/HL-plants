@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const ProductCard = ({ product }) => {
   return (
-    <Link href={product.type+"s/"+product.slug}>
+    <Link href={(product.type ==="plant"?"plants":"accessories")+"/"+product.slug}>
       <Card className="relative max-w-96 snap-center cursor-pointer">
         <CardMedia
           className=""
