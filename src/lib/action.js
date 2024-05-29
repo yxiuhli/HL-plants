@@ -20,7 +20,9 @@ export const addProduct = async (formData) => {
 
     await newProduct.save();
     console.log("saved to db");
-    window.location.reload();
+    revalidatePath("/admin");
+    revalidatePath("/plants");
+    revalidatePath("/accessories");
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
@@ -35,7 +37,8 @@ export const updateProduct = async (formData) => {
     await Product.findByIdAndUpdate(id, {name: name, desc: desc, img: img, type: type, price: price, slug: slug});
     console.log("updated to db");
     revalidatePath("/admin");
-    window.location.reload();
+    revalidatePath("/plants");
+    revalidatePath("/accessories");
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
@@ -63,7 +66,8 @@ export const deleteProduct = async (formData) => {
     await Product.findByIdAndDelete(id);
     console.log("deleted from db");
     revalidatePath("/admin");
-    setReload(!reload);
+    revalidatePath("/plants");
+    revalidatePath("/accessories");
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };

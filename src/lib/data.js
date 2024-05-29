@@ -6,7 +6,7 @@ import { unstable_noStore as noStore } from "next/cache";
 export const getPlants = async () => {
   try {
     connectToDb();
-    const plants = await Product.find();
+    const plants = await Product.find({type: "plant"});
     return plants;
   } catch (err) {
     console.log(err);
@@ -14,7 +14,16 @@ export const getPlants = async () => {
   }
 };
 
-
+export const getAccessories = async () => {
+  try {
+    connectToDb();
+    const accessories = await Product.find({type: "accessory"});
+    return accessories;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch Plants!");
+  }
+};
 
 export const deleteProductById = async (id) => {
   try {
