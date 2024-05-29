@@ -8,7 +8,7 @@ const About = () => {
       <div className="w-full relative h-[960px]">
         <img
           className="absolute top-0 left-0 z-0 static object-cover h-full w-full"
-          src="/about1.jpeg"
+          src="https://images6.alphacoders.com/109/1098127.jpg"
           alt="nature image"
         />
         <Typography
@@ -21,7 +21,7 @@ const About = () => {
       </div>
       <div className="w-full relative h-[960px] ">
         <Typography variant="h3" className="absolute z-10 top-1/5 left-1/3 font-bold text-center font-[cursive] ml-12">WE BELIEVE</Typography>
-        <img className="absolute mt-24 h-1/3 left-1/3" src="/about.jpeg" alt="About" />
+        <img className="absolute mt-24 h-1/3 left-1/3" src="https://www.evertricks.com/wp-content/uploads/2019/10/0-1.jpg" alt="About" />
         <Typography variant="p" className="absolute z-10 top-1/2 left-1/3 right-1/3 body1 text-center font-[cursive]">
           Everyone should live with a little more green.
           HL-Plants is here to help strengthen your relationship with plants. We make buying plants easy by delivering healthy, ready-to-go plants to your door and setting you up with the tips and tricks you need to help your plants thrive. Plants make life better. We make plants easy.
@@ -37,7 +37,7 @@ const About = () => {
         <div className="flex justify-between mt-16">
           <img
             className="h-[300px] mt-24 mx-48"
-            src="/about-from-greenhouse.png"
+            src="https://bloomscape.com/wp-content/uploads/2020/05/about-from-greenhouse.png?ver=205033"
             alt="nature image"
             />
           <div className="flex flex-col mr-96 mt-36">
