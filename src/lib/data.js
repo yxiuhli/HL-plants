@@ -17,7 +17,7 @@ export const getPlant = async (slug) => {
   try {
     connectToDb();
     console.log(slug)
-    const plant = await Product.findOne({ slug: "/" + slug });
+    const plant = await Product.findOne({ slug: slug });
     return plant;
   } catch (err) {
     console.log(err);
