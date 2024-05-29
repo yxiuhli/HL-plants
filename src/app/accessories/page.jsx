@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import ProductsPanel from "@/components/productsPanel/ProductsPanel";
-import { getPlants } from "@/lib/data";
+import { getAccessories } from "@/lib/data";
 import SortMenu from "@/components/sortMenu/SortMenu";
 import Filters from "@/components/filterMenu/FilterMenu";
 
 
-const plants = await getPlants();
+const accessories = await getAccessories();
 
 const AccessoriesPage = () => {
 
@@ -22,7 +22,7 @@ const AccessoriesPage = () => {
           <Filters />
         </div>
         <div className="w-4/5 bg-yellow-300">
-          <ProductsPanel products={plants} />
+          <ProductsPanel products={accessories} />
         </div>
       </div>
     </div>

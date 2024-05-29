@@ -1,9 +1,15 @@
-import React from 'react'
+import * as React from 'react';
+import DataGridPanel from '@/components/dataGridPanel/DataGridPanel';
 
-const Admin = () => {
+
+const AdminPage = () => {
+  
   return (
-    <div>Admin</div>
-  )
-}
+    <div className='p-12'>
 
-export default Admin
+      <DataGridPanel/>
+    </div>
+  )
+};
+
+export default AdminPage;

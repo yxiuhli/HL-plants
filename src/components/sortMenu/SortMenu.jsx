@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import { useContext } from "react";
 import { Select, MenuItem } from "@mui/material";
+import SortFilterContext from "@/lib/SortFilterProvider";
 
 const SortMenu = () => {
-  const [sort, setSort] = React.useState("");
+  const {sort, setSort} = useContext(SortFilterContext)
 
   const handleChange = (event) => {
     setSort(event.target.value);
@@ -16,10 +17,9 @@ const SortMenu = () => {
       displayEmpty
       inputProps={{ "aria-label": "Without label" }}
     >
-      <MenuItem value="">Sort by Featured</MenuItem>
+      <MenuItem value={0}>Sort by Newest</MenuItem>
       <MenuItem value={10}>Sort by Price: Low To High</MenuItem>
       <MenuItem value={20}>Sort by Price: High To Low</MenuItem>
-      <MenuItem value={30}>Sort by Newest</MenuItem>
     </Select>
   );
 };

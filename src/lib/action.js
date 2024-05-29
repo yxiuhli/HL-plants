@@ -1,97 +1,81 @@
 "use server";
-
 import { revalidatePath } from "next/cache";
-import { Post, User } from "./models";
+import { Product, User } from "./models";
 import { connectToDb } from "./utils";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
 
-export const addPost = async (prevState,formData) => {
-  // const title = formData.get("title");
-  // const desc = formData.get("desc");
-  // const slug = formData.get("slug");
-
-  const { title, desc, slug, userId } = Object.fromEntries(formData);
-
+export const addProduct = async (formData) => {
+  const { name, desc, img, type, price, slug } = Object.fromEntries(formData);
   try {
     connectToDb();
-    const newPost = new Post({
-      title,
+    const newProduct = new Product({
+      name,
       desc,
-      slug,
-      userId,
-    });
-
-    await newPost.save();
-    console.log("saved to db");
-    revalidatePath("/blog");
-    revalidatePath("/admin");
-  } catch (err) {
-    console.log(err);
-    return { error: "Something went wrong!" };
-  }
-};
-
-export const deletePost = async (formData) => {
-  const { id } = Object.fromEntries(formData);
-
-  try {
-    connectToDb();
-
-    await Post.findByIdAndDelete(id);
-    console.log("deleted from db");
-    revalidatePath("/blog");
-    revalidatePath("/admin");
-  } catch (err) {
-    console.log(err);
-    return { error: "Something went wrong!" };
-  }
-};
-
-export const addUser = async (prevState,formData) => {
-  const { username, email, password, img } = Object.fromEntries(formData);
-
-  try {
-    connectToDb();
-    const newUser = new User({
-      username,
-      email,
-      password,
       img,
+      type,
+      price,
+      slug,
     });
 
-    await newUser.save();
+    await newProduct.save();
     console.log("saved to db");
     revalidatePath("/admin");
+    revalidatePath("/plants");
+    revalidatePath("/accessories");
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
   }
 };
 
-export const deleteUser = async (formData) => {
+export const updateProduct = async (formData) => {
+  const { id, name, desc, img, type, price, slug } = Object.fromEntries(formData);
+  try {
+    connectToDb();
+    console.log(id)
+    await Product.findByIdAndUpdate(id, {name: name, desc: desc, img: img, type: type, price: price, slug: slug});
+    console.log("updated to db");
+    revalidatePath("/admin");
+    revalidatePath("/plants");
+    revalidatePath("/accessories");
+  } catch (err) {
+    console.log(err);
+    return { error: "Something went wrong!" };
+  }
+};
+
+export const getProducts = async () => {
+  try {
+    connectToDb();
+    const plants = await Product.find();
+    return plants;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch Plants!");
+  }
+};
+
+export const deleteProduct = async (formData) => {
   const { id } = Object.fromEntries(formData);
 
+  console.log(id)
   try {
     connectToDb();
 
-    await Post.deleteMany({ userId: id });
-    await User.findByIdAndDelete(id);
+    await Product.findByIdAndDelete(id);
     console.log("deleted from db");
     revalidatePath("/admin");
+    revalidatePath("/plants");
+    revalidatePath("/accessories");
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
   }
-};
-
-export const handleGithubLogin = async () => {
-  "use server";
-  await signIn("github");
 };
 
 export const handleLogout = async () => {
-  "use server";
+  //"use server"
   await signOut();
 };
 

@@ -1,3 +1,4 @@
+
 import { Typography } from "@mui/material";
 import React from "react";
 import ProductsPanel from "@/components/productsPanel/ProductsPanel";
@@ -8,6 +9,7 @@ import Filters from "@/components/filterMenu/FilterMenu";
 const plants = await getPlants();
 
 const PlantsPage = () => {
+  
   return (
     <div className="flex flex-col">
       <div className="flex justify-between px-10 py-6">
@@ -20,6 +22,7 @@ const PlantsPage = () => {
           <Filters />
         </div>
         <div className="w-4/5 bg-yellow-300">
+          {}
           <ProductsPanel products={plants} />
         </div>
       </div>
