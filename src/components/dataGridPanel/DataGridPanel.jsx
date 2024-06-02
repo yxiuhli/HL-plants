@@ -1,14 +1,20 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Typography, Link, Button, Modal, Box, TextField, MenuItem } from "@mui/material";
+import {
+  Typography,
+  Link,
+  Button,
+  Modal,
+  Box,
+  TextField,
+  MenuItem,
+} from "@mui/material";
 import { deleteProduct } from "@/lib/action";
 import { getProducts, addProduct, updateProduct } from "@/lib/action";
 
-
-
 const DataGridPanel = async () => {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [reload, setReload] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -21,6 +27,11 @@ const DataGridPanel = async () => {
       console.log(err);
     }
   }, [reload]);
+
+  const handleSubmit = () => {
+    setReload(!reload);
+    setOpen(false);
+  };
 
   const columns = [
     { field: "name", headerName: "Name", width: 250 },
@@ -39,9 +50,7 @@ const DataGridPanel = async () => {
               setUpdate(true);
               setOpen(true);
               setUpdatingProduct(
-                products.find(
-                  (product) => product._id == param.id
-                )
+                products.find((product) => product._id == param.id)
               );
             }}
           >
@@ -55,10 +64,14 @@ const DataGridPanel = async () => {
       headerName: "Delete",
       width: 120,
       renderCell: (param) => {
-        return (<form action={deleteProduct}>
-          <input type="hidden" name="id" value={param.id} />
-          <button className="cursor-pointer w-16 h-8 rounded-full bg-red-700 text-white hover:bg-red-500">Delete</button>
-        </form>)
+        return (
+          <form action={deleteProduct} onSubmit={handleSubmit}>
+            <input type="hidden" name="id" value={param.id} />
+            <button className="cursor-pointer w-16 h-8 rounded-full bg-red-700 text-white hover:bg-red-500">
+              Delete
+            </button>
+          </form>
+        );
       },
     },
   ];
@@ -96,8 +109,14 @@ const DataGridPanel = async () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {update ? "Update product's detail" : "Add new product"}
           </Typography>
-          <form className="flex flex-col gap-4 mt-4" action={update?updateProduct:addProduct}>
-            {update && <input type="hidden" name="id" value={updatingProduct._id} />}
+          <form
+            className="flex flex-col gap-4 mt-4"
+            action={update ? updateProduct : addProduct}
+            onSubmit={handleSubmit}
+          >
+            {update && (
+              <input type="hidden" name="id" value={updatingProduct._id} />
+            )}
             <TextField
               name="name"
               label="Product name"
@@ -122,11 +141,12 @@ const DataGridPanel = async () => {
               name="type"
               label="Product type"
               variant="standard"
-              defaultValue={update ? updatingProduct.type : ""}>
-                <MenuItem value="plant">Plant</MenuItem>
-                <MenuItem value="accessory">Accessory</MenuItem>
-              </TextField>
-            
+              defaultValue={update ? updatingProduct.type : ""}
+            >
+              <MenuItem value="plant">Plant</MenuItem>
+              <MenuItem value="accessory">Accessory</MenuItem>
+            </TextField>
+
             <TextField
               name="price"
               label="Price"

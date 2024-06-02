@@ -5,6 +5,7 @@ import { connectToDb } from "./utils";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
 
+
 export const addProduct = async (formData) => {
   const { name, desc, img, type, price, slug } = Object.fromEntries(formData);
   try {
