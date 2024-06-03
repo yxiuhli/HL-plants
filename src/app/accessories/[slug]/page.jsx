@@ -1,10 +1,9 @@
-import { getPlant } from "@/lib/data";
 import React from "react";
-import AddToCartButton from '@/components/addToCart/AddToCart';
+import { getProduct } from "@/lib/action";
 
 const SinglePostPage = async ({ params }) => {
   const { slug } = params;
-  const post = await getPlant(slug);
+  const post = await getProduct(slug);
   return (
     <div className="flex flex-col md:flex-row py-12">
       <div className="w-full min-w-48 md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
@@ -45,7 +44,6 @@ const SinglePostPage = async ({ params }) => {
           </div>
 
           <div className="p-24 my-4">
-            <AddToCartButton />
           </div>
 
         </div>

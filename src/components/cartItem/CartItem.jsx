@@ -17,12 +17,12 @@ const CartItem = ({ item }) => {
     const handleQuantityChange = (qty) => {
       const quantity = Number(qty);
       if (quantity >= 1) {
-        updateCartItemQuantity(item.product.id, quantity);
+        updateCartItemQuantity(item.product._id, quantity);
       }
     };
   
     const handleRemoveClick = () => {
-      removeFromCart(item.product.id);
+      removeFromCart(item.product._id);
     };
   
     return (

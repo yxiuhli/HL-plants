@@ -57,6 +57,18 @@ export const getProducts = async () => {
   }
 };
 
+export const getProduct = async (slug) => {
+  try {
+    connectToDb();
+    console.log(slug)
+    const product = await Product.findOne({ slug: slug });
+    return product;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch product!");
+  }
+};
+
 export const deleteProduct = async (formData) => {
   const { id } = Object.fromEntries(formData);
 
@@ -72,6 +84,28 @@ export const deleteProduct = async (formData) => {
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
+  }
+};
+
+export const getPlants = async () => {
+  try {
+    connectToDb();
+    const plants = await Product.find({type: "plant"});
+    return plants;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch Plants!");
+  }
+};
+
+export const getAccessories = async () => {
+  try {
+    connectToDb();
+    const accessories = await Product.find({type: "accessory"});
+    return accessories;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch Plants!");
   }
 };
 

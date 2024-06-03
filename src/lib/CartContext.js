@@ -38,14 +38,14 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = (productId) => {
     const updatedCartItems = cartItems.filter(
-      (item) => item.product.id !== productId
+      (item) => item.product._id !== productId
     );
     setCartItems(updatedCartItems);
   };
 
   const updateCartItemQuantity = (productId, quantity) => {
     const existingCartItemIndex = cartItems.findIndex(
-      (item) => item.product.id === productId
+      (item) => item.product._id === productId
     );
     if (existingCartItemIndex !== -1) {
       const existingCartItem = cartItems[existingCartItemIndex];

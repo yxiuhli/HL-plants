@@ -1,21 +1,35 @@
-
+"use client";
 import { Typography } from "@mui/material";
-import React from "react";
+import { useState, useEffect } from "react";
 import ProductsPanel from "@/components/productsPanel/ProductsPanel";
-import { getPlants } from "@/lib/data";
 import SortMenu from "@/components/sortMenu/SortMenu";
 import Filters from "@/components/filterMenu/FilterMenu";
-
-const plants = await getPlants();
+import { getPlants } from "@/lib/action";
 
 const PlantsPage = () => {
-  
+  const [products, setProducts] = useState([]);
+  const [displayProducts, setDisplayProducts] = useState([]);
+
+  useEffect(() => {
+    try {
+      getPlants().then((data) => {
+        setProducts(data);
+        setDisplayProducts(
+          data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        );
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-between px-10 py-6">
-        <Typography variant="h3" className="font-serif">Plants</Typography>
-
-        <SortMenu />
+        <Typography variant="h3" className="font-serif">
+          Plants
+        </Typography>
+        <SortMenu products={products} setDisplayProducts={setDisplayProducts} />
       </div>
       <div className="flex gap-10 px-10 mt-4">
         <div className="w-1/5 ">
@@ -23,7 +37,7 @@ const PlantsPage = () => {
         </div>
         <div className="w-4/5">
           {}
-          <ProductsPanel products={plants} />
+          <ProductsPanel products={displayProducts} />
         </div>
       </div>
     </div>

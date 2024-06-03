@@ -1,14 +1,25 @@
 "use client";
-import { useContext } from "react";
 import { Select, MenuItem } from "@mui/material";
-import SortFilterContext from "@/lib/ControlProvider";
+import { useState, useEffect } from "react";
 
-const SortMenu = () => {
-  const { sort, setSort } = useContext(SortFilterContext);
-
+const SortMenu = ({ products, setDisplayProducts }) => {
+  const [sort, setSort] = useState("");
   const handleChange = (event) => {
     setSort(event.target.value);
   };
+
+  useEffect(() => {
+    const sorted = [...products];
+    if (sort === "ascending") {
+      setDisplayProducts(sorted.sort((a, b) => a.price - b.price));
+    } else if (sort === "descending") {
+      setDisplayProducts(sorted.sort((a, b) => b.price - a.price));
+    } else {
+      setDisplayProducts(
+        sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      );
+    }
+  }, [sort]);
 
   return (
     <Select
@@ -18,7 +29,7 @@ const SortMenu = () => {
       displayEmpty
       inputProps={{ "aria-label": "Without label" }}
     >
-      <MenuItem value={"newest"}>Sort by Newest</MenuItem>
+      <MenuItem value={""}>Sort by Newest</MenuItem>
       <MenuItem value={"ascending"}>Sort by Price: Low To High</MenuItem>
       <MenuItem value={"descending"}>Sort by Price: High To Low</MenuItem>
     </Select>

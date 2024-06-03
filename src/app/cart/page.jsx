@@ -17,10 +17,11 @@ const CartPage = () => {
     <Container>
       <Typography
         style={{
-          textAlign: "center",
+          textAlign: "left",
         }}
-        variant="h3"
-        mb={10}
+        variant="h4"
+        mt={5}
+        mb={5}
       >
         Shopping Cart
       </Typography>

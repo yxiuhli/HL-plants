@@ -13,7 +13,7 @@ import {
 import { deleteProduct } from "@/lib/action";
 import { getProducts, addProduct, updateProduct } from "@/lib/action";
 
-const DataGridPanel = async () => {
+const DataGridPanel =  () => {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [reload, setReload] = useState(false);

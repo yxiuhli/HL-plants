@@ -1,6 +1,5 @@
 "use client";
 import { CartProvider } from "@/lib/CartContext";
-import { ControlProvider } from "@/lib/ControlProvider";
 import {
   StyledEngineProvider,
   createTheme,
@@ -20,11 +19,9 @@ const theme = createTheme({
 export function Providers({ children }) {
   return (
     <StyledEngineProvider>
-      <ControlProvider>
         <ThemeProvider theme={theme}>
           <CartProvider>{children}</CartProvider>
         </ThemeProvider>
-      </ControlProvider>
     </StyledEngineProvider>
   );
 }

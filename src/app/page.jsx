@@ -1,5 +1,5 @@
 import ProductCard from "@/components/productsPanel/productCard/ProductCard";
-import { getPlants } from "@/lib/data";
+import { getPlants } from "@/lib/action";
 import { Typography } from "@mui/material";
 
 const plants = await getPlants();
