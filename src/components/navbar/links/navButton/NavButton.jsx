@@ -20,9 +20,10 @@ export const LogoutNavButton = () => {
 
   return (
       <Button
+        type="submit"
         variant="outlined"
         color="black"
-        className="hidden md:block p-2 cursor-pointer"
+        className="hidden md:block p-2 min-w-24 rounded-xl"
       >
         Logout
       </Button>

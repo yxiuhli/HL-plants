@@ -13,6 +13,9 @@ const theme = createTheme({
   palette: {
     black: createColor("#000000"),
     orl: createColor("#fff2e6"),
+    atc: createColor("#9c4f1f"),
+    lg: createColor("#344b6e"),
+    teal: createColor("#0c2b14")
   },
 });
 

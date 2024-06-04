@@ -7,8 +7,8 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Next App",
-  description: "Next.js frontend app",
+  title: "HL-plants",
+  description: "Online plants store",
 };
 
 export default function RootLayout({ children }) {

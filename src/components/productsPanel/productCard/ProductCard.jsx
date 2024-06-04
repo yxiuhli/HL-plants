@@ -1,5 +1,6 @@
 "use client";
 import { useCart } from "@/lib/CartContext";
+import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import {
   Typography,
   Card,
@@ -20,30 +21,32 @@ const ProductCard = ({ product }) => {
         product.slug
       }
     >
-      <Card className="relative max-w-96 snap-center cursor-pointer">
+      <Card className="max-w-80 snap-center cursor-pointer">
         <CardMedia
           className=""
           component="img"
-          height="400"
+          height="320"
           image={product.img}
           alt={product.name}
         />
-        <CardContent>
-          <Typography variant="h5">{product.name}</Typography>
-          <p>{product.price}$</p>
+        <CardContent className="">
+          <Typography variant="h5" className="font-semibold font-[Palatino]">{product.name}</Typography>
+          <div className="flex items-center justify-between">
+
+          <Typography variant="h5" className="font-[Palatino]">{product.price}$</Typography>
           <Button
-            variant="contained"
-            color="orl"
+            variant="outlined"
+            color="atc"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               addToCart(product);
             }}
-            className="absolute rounded-full left-1/2 top-[360px] min-w-[80%] min-h-12
-        transform -translate-x-1/2 -translate-y-1/2 z-10"
+            className="rounded-md min-w-[40%] min-h-10 z-10"
           >
-            Add to cart
+            {"Add to cart "} <ShoppingCartIcon className="w-5"/>
           </Button>
+          </div>
         </CardContent>
       </Card>
     </Link>

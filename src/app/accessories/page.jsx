@@ -7,14 +7,15 @@ import Filters from "@/components/filterMenu/FilterMenu";
 import { getAccessories } from "@/lib/action";
 
 const AccessoriesPage = () => {
-
   const [products, setProducts] = useState([]);
   const [displayProducts, setDisplayProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     try {
       getAccessories().then((data) => {
         setProducts(data);
+        setFilteredProducts(data);
         setDisplayProducts(
           data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         );
@@ -26,15 +27,15 @@ const AccessoriesPage = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between px-10 py-6">
+      <div className="flex justify-between px-10 py-4">
         <Typography variant="h3" className="font-serif">
           Plants
         </Typography>
-        <SortMenu products={products} setDisplayProducts={setDisplayProducts} />
+        <SortMenu filteredProducts={filteredProducts} setDisplayProducts={setDisplayProducts} />
       </div>
-      <div className="flex gap-10 px-10 mt-4">
+      <div className="flex gap-10 px-10 mt-2">
         <div className="w-1/5 ">
-          <Filters />
+          <Filters productType="accessory" products={products} setFilteredProducts={setFilteredProducts}/>
         </div>
         <div className="w-4/5">
           {}

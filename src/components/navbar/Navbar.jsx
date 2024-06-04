@@ -4,27 +4,30 @@ import { auth } from "@/lib/auth";
 import { LoginNavButton, LogoutNavButton } from "./links/navButton/NavButton";
 import { handleLogout } from "@/lib/action";
 import NavLink from "./links/navLink/NavLink";
-import CartButton from "../cartButton/CartButton";
-
+import CartButton from "../cartItem/cartButton/CartButton";
 
 const Navbar = async () => {
   const session = await auth();
   return (
     <div className="sticky absolute z-20 top-0 h-[70px] flex items-center justify-between border-solid border-0 border-b border-blue-900/10 bg-[#fffbf6] px-10 font-[Avantgarde]">
-      <Link href="/" className="font-bold text-2xl font-serif text-teal-800">
-        HL-Plants
-      </Link>
-      <Links />
-      <div className="flex items-center">
+      <div className="flex items-center gap-1">
+        <img src="/favicon.ico" className="w-7 mb-1" alt="" />
+        <Link href="/" className="font-bold text-2xl font-serif text-teal-800">
+          HL-Plants
+        </Link>
+      </div>
 
-        <CartButton/>
-        {session?.user ? (
-          <>
-            {session.user?.isAdmin && (
+      <Links />
+      <div className="flex  items-center">
+      {session?.user?.isAdmin && (
               <NavLink item={{ title: "Admin", path: "/admin" }} />
             )}
+        <CartButton />
+        {session?.user ? (
+          <>
+            
             <form action={handleLogout}>
-              <button className="w-16">Logout</button>
+              <LogoutNavButton className="w-20">Logout</LogoutNavButton>
             </form>
           </>
         ) : (

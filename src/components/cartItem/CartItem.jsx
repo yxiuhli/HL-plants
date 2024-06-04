@@ -56,7 +56,7 @@ const CartItem = ({ item }) => {
             <Typography variant="h5">
               ${(item.product.price * item.quantity).toFixed(2)}
             </Typography>
-            <Box>
+            <Box>{/*  className="rounded-full border-solid border- p-2 min-w-32"> */}
               {/* Icreasing/Deacreasing Product Quantity Button  */}
               <Stack alignItems="center" direction="row" spacing={1}>
                 <IconButton

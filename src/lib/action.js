@@ -5,9 +5,9 @@ import { connectToDb } from "./utils";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
 
-
 export const addProduct = async (formData) => {
-  const { name, desc, img, type, price, slug } = Object.fromEntries(formData);
+  const { name, desc, img, type, category, price, slug } = Object.fromEntries(formData);
+  console.log("category" + category)
   try {
     connectToDb();
     const newProduct = new Product({
@@ -15,6 +15,7 @@ export const addProduct = async (formData) => {
       desc,
       img,
       type,
+      category,
       price,
       slug,
     });
@@ -31,11 +32,20 @@ export const addProduct = async (formData) => {
 };
 
 export const updateProduct = async (formData) => {
-  const { id, name, desc, img, type, price, slug } = Object.fromEntries(formData);
+  const { id, name, desc, img, type, category, price, slug } =
+    Object.fromEntries(formData);
   try {
     connectToDb();
-    console.log(id)
-    await Product.findByIdAndUpdate(id, {name: name, desc: desc, img: img, type: type, price: price, slug: slug});
+    console.log(id);
+    await Product.findByIdAndUpdate(id, {
+      name: name,
+      desc: desc,
+      img: img,
+      type: type,
+      category: category,
+      price: price,
+      slug: slug,
+    });
     console.log("updated to db");
     revalidatePath("/admin");
     revalidatePath("/plants");
@@ -60,7 +70,7 @@ export const getProducts = async () => {
 export const getProduct = async (slug) => {
   try {
     connectToDb();
-    console.log(slug)
+    console.log(slug);
     const product = await Product.findOne({ slug: slug });
     return product;
   } catch (err) {
@@ -72,7 +82,7 @@ export const getProduct = async (slug) => {
 export const deleteProduct = async (formData) => {
   const { id } = Object.fromEntries(formData);
 
-  console.log(id)
+  console.log(id);
   try {
     connectToDb();
 
@@ -90,7 +100,7 @@ export const deleteProduct = async (formData) => {
 export const getPlants = async () => {
   try {
     connectToDb();
-    const plants = await Product.find({type: "plant"});
+    const plants = await Product.find({ type: "plant" });
     return plants;
   } catch (err) {
     console.log(err);
@@ -101,7 +111,7 @@ export const getPlants = async () => {
 export const getAccessories = async () => {
   try {
     connectToDb();
-    const accessories = await Product.find({type: "accessory"});
+    const accessories = await Product.find({ type: "accessory" });
     return accessories;
   } catch (err) {
     console.log(err);
@@ -155,13 +165,14 @@ export const login = async (prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
 
   try {
-    await signIn("credentials", { username, password });
+    await signIn("credentials", { username, password , redirectTo: "/" });
   } catch (err) {
     console.log(err);
 
     if (err.message.includes("CredentialsSignin")) {
       return { error: "Invalid username or password" };
     }
+
     throw err;
   }
 };

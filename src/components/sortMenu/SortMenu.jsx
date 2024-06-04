@@ -2,14 +2,14 @@
 import { Select, MenuItem } from "@mui/material";
 import { useState, useEffect } from "react";
 
-const SortMenu = ({ products, setDisplayProducts }) => {
+const SortMenu = ({ filteredProducts, setDisplayProducts }) => {
   const [sort, setSort] = useState("");
   const handleChange = (event) => {
     setSort(event.target.value);
   };
 
   useEffect(() => {
-    const sorted = [...products];
+    const sorted = [...filteredProducts];
     if (sort === "ascending") {
       setDisplayProducts(sorted.sort((a, b) => a.price - b.price));
     } else if (sort === "descending") {
@@ -19,7 +19,7 @@ const SortMenu = ({ products, setDisplayProducts }) => {
         sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       );
     }
-  }, [sort]);
+  }, [sort, filteredProducts]);
 
   return (
     <Select

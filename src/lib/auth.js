@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
 
 const login = async (credentials) => {
+  "use server"
   try {
     connectToDb();
     const user = await User.findOne({ username: credentials.username });
@@ -45,35 +46,13 @@ export const {
           const user = await login(credentials);
           return user;
         } catch (err) {
-          return null;
+          throw err
         }
       },
     }),
   ],
   secret: process.env.SECRET,
   callbacks: {
-    async signIn({ user, account, profile }) {
-      if (account.provider === "github") {
-        connectToDb();
-        try {
-          const user = await User.findOne({ email: profile.email });
-
-          if (!user) {
-            const newUser = new User({
-              username: profile.login,
-              email: profile.email,
-              image: profile.avatar_url,
-            });
-
-            await newUser.save();
-          }
-        } catch (err) {
-          console.log(err);
-          return false;
-        }
-      }
-      return true;
-    },
     ...authConfig.callbacks,
   },
 });

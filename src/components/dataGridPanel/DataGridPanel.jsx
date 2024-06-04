@@ -3,7 +3,6 @@ import { useState, useEffect, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Typography,
-  Link,
   Button,
   Modal,
   Box,
@@ -12,13 +11,17 @@ import {
 } from "@mui/material";
 import { deleteProduct } from "@/lib/action";
 import { getProducts, addProduct, updateProduct } from "@/lib/action";
+import { accessoryCategories, plantCategories } from "@/lib/category";
 
-const DataGridPanel =  () => {
+const DataGridPanel = () => {
+  const plantCates = plantCategories;
+  const accessoryCates = accessoryCategories;
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [reload, setReload] = useState(false);
   const [update, setUpdate] = useState(false);
   const [updatingProduct, setUpdatingProduct] = useState({});
+  const [selected, setSelected] = useState("plant");
 
   useEffect(() => {
     try {
@@ -34,9 +37,10 @@ const DataGridPanel =  () => {
   };
 
   const columns = [
-    { field: "name", headerName: "Name", width: 250 },
+    { field: "name", headerName: "Name", width: 200 },
     { field: "price", headerName: "Price($)", width: 100 },
     { field: "type", headerName: "Type", width: 100 },
+    { field: "category", headerName: "Category", width: 100 },
     { field: "desc", headerName: "Description", width: 500 },
     {
       field: "edit",
@@ -80,17 +84,19 @@ const DataGridPanel =  () => {
     name: product.name,
     price: product.price,
     type: product.type,
+    category: product.category,
     desc: product.desc,
   }));
   return (
     <div className="px-12 flex flex-col gap-8">
-      <Typography className="mt-12 ml-2" variant="h5">
+      <Typography className="mt-6 ml-2 font-[cursive]" variant="h4">
         Product management
       </Typography>
       <div className="h-[300px] w-full">
         <DataGrid rows={rows} columns={columns} />
       </div>
       <Button
+        color="teal"
         onClick={() => {
           setUpdate(false);
           setOpen(true);
@@ -106,8 +112,8 @@ const DataGridPanel =  () => {
         aria-describedby="modal-modal-description"
       >
         <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] bg-white border-solid border-2 shadow-2xl p-4">
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {update ? "Update product's detail" : "Add new product"}
+          <Typography id="modal-modal-title" variant="h6" component="h2" className="text-center font-semibold">
+            {update ? "UPDATE PRODUCT'S DETAIL" : "ADD NEW PRODUCT"}
           </Typography>
           <form
             className="flex flex-col gap-4 mt-4"
@@ -141,12 +147,28 @@ const DataGridPanel =  () => {
               name="type"
               label="Product type"
               variant="standard"
-              defaultValue={update ? updatingProduct.type : ""}
+              onChange={(e) => {
+                e.preventDefault();
+                setSelected(e.target.value);
+              }}
+              defaultValue={update ? updatingProduct.type : "plant"}
             >
               <MenuItem value="plant">Plant</MenuItem>
               <MenuItem value="accessory">Accessory</MenuItem>
             </TextField>
-
+            <TextField
+              select
+              name="category"
+              label="Product Category"
+              variant="standard"
+              defaultValue={update ? updatingProduct.category : ""}
+            >
+              {(selected === "plant" ? plantCates : accessoryCates).map(
+                (cate) => (
+                  <MenuItem value={cate.value}>{cate.name}</MenuItem>
+                )
+              )}
+            </TextField>
             <TextField
               name="price"
               label="Price"
@@ -159,10 +181,17 @@ const DataGridPanel =  () => {
               variant="standard"
               defaultValue={update ? updatingProduct.slug : ""}
             />
-            <Button variant="contained" type="submit" className="max-w-96 mt-4">
+            <Button
+              color="teal"
+              variant="contained"
+              type="submit"
+              className="max-w-96 mt-4"
+            >
               Save
             </Button>
-            <Button onClick={() => setOpen(false)}>Cancel</Button>
+            <Button color="teal" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
           </form>
         </Box>
       </Modal>

@@ -2,16 +2,18 @@
 import {
   Box,
   Button,
-  Grid,
   Typography,
   Container,
   Divider,
 } from "@mui/material";
+import { useState, useEffect } from "react";
 import { useCart } from "@/lib/CartContext";
 import CartItem from "@/components/cartItem/CartItem";
+import CheckoutModal from "@/components/checkoutModal/CheckoutModal";
 
 const CartPage = () => {
   const { cartItems, cartTotal } = useCart();
+  const [open, setOpen] = useState(false);
 
   return (
     <Container>
@@ -53,11 +55,12 @@ const CartPage = () => {
             </Box>
 
             <Box mt={2} mb={6}>
-              <Button variant="outlined">Checkout</Button>
+              <Button variant="contained" color="teal" onClick={()=>setOpen(true)}>Checkout</Button>
             </Box>
           </div>
         </>
       )}
+      <CheckoutModal open={open} setOpen={setOpen} cartItems={cartItems}/>
     </Container>
   );
 };
