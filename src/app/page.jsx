@@ -9,11 +9,11 @@ const plants = await getPlants();
 const Home = () => {
   const recents = [...plants].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
   const categories = [
-    { id: 1, name: "Garden plants", img: "/category/cat1.jpg" },
-    { id: 2, name: "House plants", img: "/category/cat2.jpg" },
-    { id: 3, name: "Balcony plants", img: "/category/cat3.jpg" },
-    { id: 4, name: "Tools", img: "/category/cat4.jpg" },
-    { id: 5, name: "Pots", img: "/category/cat5.jpg" },
+    { id: "garden", name: "Garden plants", img: "/category/cat1.jpg" },
+    { id: "house", name: "House plants", img: "/category/cat2.jpg" },
+    { id: "balcony", name: "Balcony plants", img: "/category/cat3.jpg" },
+    { id: "tool", name: "Tools", img: "/category/cat4.jpg" },
+    { id: "pot", name: "Pots", img: "/category/cat5.jpg" },
   ];
   const reviews = [
     { id: 1, user: "John C.", rate: 5, date: "03/30/24" ,comment: "Absolutely stellar customer service. I sent a plant as a gift but the recipient had trouble receiving due to their delivery situation. HL-plants worked directly with my recipient to ensure the plant arrived safely. It gave me such peace of mind."},

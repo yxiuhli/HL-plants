@@ -1,5 +1,5 @@
 "use client";
-import { useCategoryFilter, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Typography,
   Divider,
@@ -10,14 +10,13 @@ import {
   Button,
 } from "@mui/material";
 
-
-const FilterMenu = ({productType, products, setFilteredProducts}) => {
+const FilterMenu = ({ productType, products, setFilteredProducts, cate }) => {
   const [categoryFilter, setCategoryFilter] = useState({
-    garden: false,
-    house: false,
-    balcony: false,
-    tool:false,
-    pot:false
+    garden: cate === "garden" ? true : false,
+    house: cate === "house" ? true : false,
+    balcony: cate === "balcony" ? true : false,
+    tool: cate === "tool" ? true : false,
+    pot: cate === "pot" ? true : false,
   });
   const { garden, house, balcony, tool, pot } = categoryFilter;
 
@@ -43,44 +42,83 @@ const FilterMenu = ({productType, products, setFilteredProducts}) => {
 
   const handleFilter = () => {
     const filtered = [...products];
-    setFilteredProducts(filtered)
-    let init = []
+    setFilteredProducts(filtered);
+    let init = [];
     if (house === true) {
-      init = init.concat(filtered.filter(product => product.category === "house"));
-    }
-    
-    if (balcony === true) {
-      init = init.concat(filtered.filter(product => product.category === "balcony"));
-    }
-    if (garden === true) {
-      init = init.concat(filtered.filter(product => product.category === "garden"));
-    }
-    if (tool === true) {
-      init = init.concat(filtered.filter(product => product.category === "tool"));
-    }
-    if (pot === true) {
-      init = init.concat(filtered.filter(product => product.category === "pot"));
-    }
-    let init2 = []
-    if (to50 === true) {
-      init2 = init2.concat(filtered.filter(product => product.price < 50 ));
-    }
-    if (to100 === true) {
-      init2 = init2.concat(filtered.filter(product => product.price < 100 && product.price >= 50));
-    }
-    if (to150 === true) {
-      init2 = init2.concat(filtered.filter(product => product.price < 150 && product.price >= 100));
-    }
-    if (above === true) {
-      init2 = init2.concat(filtered.filter(product => product.price >= 150));
+      init = init.concat(
+        filtered.filter((product) => product.category === "house")
+      );
     }
 
-    if(!to50 && !to100 && !to150 && !above && !house && !garden && !balcony && !tool && !pot) {setFilteredProducts(filtered); return;}
-    if(init.length===0 && !house && !garden && !balcony && !tool && !pot) {setFilteredProducts(init2); return;}
-    if(init2.length===0 && !to50 && !to100 && !to150 && !above) {setFilteredProducts(init); return;}
-    {setFilteredProducts(init.filter(value => init2.includes(value)))}
-    if(init.length===0 || init2.length===0) {setFilteredProducts([])}
-  }
+    if (balcony === true) {
+      init = init.concat(
+        filtered.filter((product) => product.category === "balcony")
+      );
+    }
+    if (garden === true) {
+      init = init.concat(
+        filtered.filter((product) => product.category === "garden")
+      );
+    }
+    if (tool === true) {
+      init = init.concat(
+        filtered.filter((product) => product.category === "tool")
+      );
+    }
+    if (pot === true) {
+      init = init.concat(
+        filtered.filter((product) => product.category === "pot")
+      );
+    }
+    let init2 = [];
+    if (to50 === true) {
+      init2 = init2.concat(filtered.filter((product) => product.price < 50));
+    }
+    if (to100 === true) {
+      init2 = init2.concat(
+        filtered.filter((product) => product.price < 100 && product.price >= 50)
+      );
+    }
+    if (to150 === true) {
+      init2 = init2.concat(
+        filtered.filter(
+          (product) => product.price < 150 && product.price >= 100
+        )
+      );
+    }
+    if (above === true) {
+      init2 = init2.concat(filtered.filter((product) => product.price >= 150));
+    }
+
+    if (
+      !to50 &&
+      !to100 &&
+      !to150 &&
+      !above &&
+      !house &&
+      !garden &&
+      !balcony &&
+      !tool &&
+      !pot
+    ) {
+      setFilteredProducts(filtered);
+      return;
+    }
+    if (init.length === 0 && !house && !garden && !balcony && !tool && !pot) {
+      setFilteredProducts(init2);
+      return;
+    }
+    if (init2.length === 0 && !to50 && !to100 && !to150 && !above) {
+      setFilteredProducts(init);
+      return;
+    }
+    {
+      setFilteredProducts(init.filter((value) => init2.includes(value)));
+    }
+    if (init.length === 0 || init2.length === 0) {
+      setFilteredProducts([]);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-3">
@@ -89,72 +127,72 @@ const FilterMenu = ({productType, products, setFilteredProducts}) => {
         CATEGORY
       </Typography>
       {productType === "plant" && (
-      <FormControl component="fieldset" variant="standard">
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={garden}
-                color="teal"
-                onChange={handleCateChange}
-                name="garden"
-              />
-            }
-            label="Garden plants"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={house}
-                color="teal"
-                onChange={handleCateChange}
-                name="house"
-              />
-            }
-            label="House plants"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={balcony}
-                color="teal"
-                onChange={handleCateChange}
-                name="balcony"
-              />
-            }
-            label="Balcony plants"
-          />
-        </FormGroup>
-      </FormControl>
-          )}
+        <FormControl component="fieldset" variant="standard">
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={garden}
+                  color="teal"
+                  onChange={handleCateChange}
+                  name="garden"
+                />
+              }
+              label="Garden plants"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={house}
+                  color="teal"
+                  onChange={handleCateChange}
+                  name="house"
+                />
+              }
+              label="House plants"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={balcony}
+                  color="teal"
+                  onChange={handleCateChange}
+                  name="balcony"
+                />
+              }
+              label="Balcony plants"
+            />
+          </FormGroup>
+        </FormControl>
+      )}
       {productType === "accessory" && (
-      <FormControl component="fieldset" variant="standard">
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={tool}
-                color="teal"
-                onChange={handleCateChange}
-                name="tool"
-              />
-            }
-            label="Tools"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={pot}
-                color="teal"
-                onChange={handleCateChange}
-                name="pot"
-              />
-            }
-            label="Pots"
-          />
-        </FormGroup>
-      </FormControl>
-          )}
+        <FormControl component="fieldset" variant="standard">
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={tool}
+                  color="teal"
+                  onChange={handleCateChange}
+                  name="tool"
+                />
+              }
+              label="Tools"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={pot}
+                  color="teal"
+                  onChange={handleCateChange}
+                  name="pot"
+                />
+              }
+              label="Pots"
+            />
+          </FormGroup>
+        </FormControl>
+      )}
       <Divider />
       <Typography variant="h7" className="font-[Palatino]">
         PRICE
@@ -208,7 +246,9 @@ const FilterMenu = ({productType, products, setFilteredProducts}) => {
         </FormGroup>
       </FormControl>
       <Divider />
-      <Button variant="outlined" color="teal" onClick={handleFilter}>Apply Filters</Button>
+      <Button variant="outlined" color="teal" onClick={handleFilter}>
+        Apply Filters
+      </Button>
     </div>
   );
 };

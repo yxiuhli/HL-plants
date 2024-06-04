@@ -5,8 +5,11 @@ import ProductsPanel from "@/components/productsPanel/ProductsPanel";
 import SortMenu from "@/components/sortMenu/SortMenu";
 import Filters from "@/components/filterMenu/FilterMenu";
 import { getPlants } from "@/lib/action";
+import { useSearchParams } from "next/navigation";
 
 const PlantsPage = () => {
+  const params = useSearchParams()
+  const cate = params.get('category')
   const [products, setProducts] = useState([]);
   const [displayProducts, setDisplayProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -15,10 +18,7 @@ const PlantsPage = () => {
     try {
       getPlants().then((data) => {
         setProducts(data);
-        setFilteredProducts(data);
-        setDisplayProducts(
-          data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        );
+        setFilteredProducts(cate? data.filter(product=>product.category === cate) : data );
       });
     } catch (err) {
       console.log(err);
@@ -35,7 +35,7 @@ const PlantsPage = () => {
       </div>
       <div className="flex gap-10 px-10 mt-2">
         <div className="w-1/5 ">
-          <Filters productType="plant" products={products} setFilteredProducts={setFilteredProducts}/>
+          <Filters productType="plant" products={products} setFilteredProducts={setFilteredProducts} cate={cate}/>
         </div>
         <div className="w-4/5">
           {}

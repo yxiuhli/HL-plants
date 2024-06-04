@@ -10,7 +10,7 @@ import Link from "next/link";
 const CategoryCard = ({category}) => {
   return (
     <Link
-      href={(category.id===5? "/accessories" : `/plants?category=${category.id}`)}
+      href={(category.id==="tool" || category.id==="pot"? `/accessories?category=${category.id}` : `/plants?category=${category.id}`)}
     >
       <Card className="relative max-w-64 max-h-72 snap-center cursor-pointer">
         <CardMedia
