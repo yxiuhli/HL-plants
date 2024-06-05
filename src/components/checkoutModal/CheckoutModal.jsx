@@ -17,11 +17,16 @@ import { useCart } from "@/lib/CartContext";
 const CheckoutModal = ({ open, setOpen }) => {
   const { cartItems, cartTotal } = useCart();
   const [value, setValue] = useState("cod");
-  console.log(cartItems);
+  const [childOpen, setChildOpen] = useState(false)
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setChildOpen(true);
+  };
+
   return (
     <Modal
       open={open}
@@ -40,7 +45,7 @@ const CheckoutModal = ({ open, setOpen }) => {
         <form
           className="flex flex-col mt-8"
           //   action={update ? updateProduct : addProduct}
-          //   onSubmit={handleSubmit}
+           onSubmit={handleSubmit}
         >
           <div className="flex gap-8">
             <div className="flex flex-col gap-4 w-1/2">
@@ -138,6 +143,19 @@ const CheckoutModal = ({ open, setOpen }) => {
             Cancel
           </Button>
         </form>
+        <Modal
+        open={childOpen}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 bg-white border-solid border-2 shadow-2xl p-4 rounded-md text-center">
+         <h2 id="child-modal-title">Order Create Successful!</h2>
+          <p id="child-modal-description" className="mt-6 mb-4">
+            Your order was created successfully. Feel free to check it in your order history!
+          </p>
+          <Button onClick={()=>{setChildOpen(false); setOpen(false)}}>Close</Button>
+        </Box>
+      </Modal>
       </Box>
     </Modal>
   );

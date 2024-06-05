@@ -17,6 +17,8 @@ const DataGridPanel = () => {
   const plantCates = plantCategories;
   const accessoryCates = accessoryCategories;
   const [products, setProducts] = useState([]);
+  const [remove, setRemove] = useState(false);
+  const [removeId, setRemoveId] = useState()
   const [open, setOpen] = useState(false);
   const [reload, setReload] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -34,6 +36,12 @@ const DataGridPanel = () => {
   const handleSubmit = () => {
     setReload(!reload);
     setOpen(false);
+    setRemove(false);
+  };
+
+  const handleDelete = (id) => {
+    setRemoveId(id)
+    setRemove(true);
   };
 
   const columns = [
@@ -69,12 +77,9 @@ const DataGridPanel = () => {
       width: 120,
       renderCell: (param) => {
         return (
-          <form action={deleteProduct} onSubmit={handleSubmit}>
-            <input type="hidden" name="id" value={param.id} />
-            <button className="cursor-pointer w-16 h-8 rounded-full bg-red-700 text-white hover:bg-red-500">
+            <button onClick={()=>handleDelete(param.id)} className="cursor-pointer w-16 h-8 rounded-full bg-red-700 text-white hover:bg-red-500">
               Delete
             </button>
-          </form>
         );
       },
     },
@@ -194,6 +199,25 @@ const DataGridPanel = () => {
             </Button>
           </form>
         </Box>
+      </Modal>
+      <Modal open={remove}
+        aria-labelledby="modal-delete-title"
+        aria-describedby="modal-delete-description">
+          <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] bg-white border-solid border-2 shadow-2xl p-4">
+          <Typography id="modal-delete-title" variant="h6" component="h2" className="text-center font-semibold">
+            Delete conformation
+          </Typography>
+        <form action={deleteProduct} className="flex justify-center gap-12 mt-6" onSubmit={handleSubmit}>
+            <input type="hidden" name="id" value={removeId} />
+            <button type="submit" className="cursor-pointer w-24 h-8 rounded-full bg-teal-700 text-white hover:bg-teal-800">
+              Confirm delete
+            </button>
+            <button onClick={()=>{setRemove(false); setRemoveId(null)}} className="cursor-pointer w-24 h-8 rounded-full bg-red-700 text-white hover:bg-red-600">
+              Cancel
+            </button>
+          </form>
+          
+          </Box>
       </Modal>
     </div>
   );
