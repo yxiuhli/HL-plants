@@ -205,7 +205,7 @@ const DataGridPanel = () => {
         aria-describedby="modal-delete-description">
           <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] bg-white border-solid border-2 shadow-2xl p-4">
           <Typography id="modal-delete-title" variant="h6" component="h2" className="text-center font-semibold">
-            Delete conformation
+            Delete confirmation
           </Typography>
         <form action={deleteProduct} className="flex justify-center gap-12 mt-6" onSubmit={handleSubmit}>
             <input type="hidden" name="id" value={removeId} />
