@@ -29,7 +29,7 @@ const AccessoriesPage = () => {
     <div className="flex flex-col">
       <div className="flex justify-between px-10 py-4">
         <Typography variant="h3" className="font-serif">
-          Plants
+          Accesories
         </Typography>
         <SortMenu filteredProducts={filteredProducts} setDisplayProducts={setDisplayProducts} />
       </div>
