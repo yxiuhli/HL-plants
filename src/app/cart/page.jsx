@@ -20,6 +20,8 @@ const CartPage = () => {
       <Typography
         style={{
           textAlign: "left",
+          marginTop: '20px',
+          marginBottom: '20px'
         }}
         variant="h4"
         mt={5}
@@ -31,6 +33,8 @@ const CartPage = () => {
         <Typography
           style={{
             textAlign: "center",
+            marginTop: '20px',
+            marginBottom: '20px'
           }}
           variant="subtitle1"
           gutterBottom
@@ -47,7 +51,7 @@ const CartPage = () => {
           ))}
 
           <Divider></Divider>
-          <div className="flex justify-between">
+          <div className="flex justify-between" style={{marginTop: '20px', marginBottom: '20px'}}>
             <Box mt={2}>
               <Typography variant="h5">
                 Total Cost: ${cartTotal.toFixed(2)}

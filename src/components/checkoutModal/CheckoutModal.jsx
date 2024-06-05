@@ -57,12 +57,14 @@ const CheckoutModal = ({ open, setOpen }) => {
                   label="Full name"
                   variant="outlined"
                   className="w-1/2"
+                  style={{ height: '50px' }}
                 />
                 <TextField
                   name="phone"
                   label="Phone number"
                   variant="outlined"
                   className="w-[45%]"
+                  style={{ height: '50px' }}
                 />
               </div>
               <TextField name="address" label="Address" variant="outlined" />
@@ -71,6 +73,7 @@ const CheckoutModal = ({ open, setOpen }) => {
                 variant="h5"
                 component="h2"
                 className="text-left font-semibold"
+                style={{ height: '50px' }}
               >
                 Payment Method
               </Typography>
@@ -116,6 +119,7 @@ const CheckoutModal = ({ open, setOpen }) => {
                 variant="h6"
                 component="h2"
                 className="text-left font-semibold "
+                style={{ color: '#3f51b5', fontFamily: 'Arial' }}
               >
                 {"Total:"}
               </Typography>
@@ -123,6 +127,7 @@ const CheckoutModal = ({ open, setOpen }) => {
                 variant="h6"
                 component="h2"
                 className="text-left font-semibold pr-4"
+                style={{ color: '#3f51b5', fontFamily: 'Arial' }}
               >
                 {cartTotal + " $"}
               </Typography>
